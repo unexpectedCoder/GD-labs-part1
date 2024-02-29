@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Лабораторная работа №1: “Экспериментальное исследование течения в сопле Лаваля” &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lab-1-laval-nozzle';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Лабораторная работа №2: “Ударная труба”" href="lab-2-trans-equation.html" />
+    <link rel="prev" title="Введение" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Введение
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Лабораторная работа №1: “Экспериментальное исследование течения в сопле Лаваля”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab-2-trans-equation.html">Лабораторная работа №2: “Ударная труба”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab-3-compressed-gas-shooting.html">Лабораторная работа №3: “Метание тел сжатым газом”</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/GD-labs-part1" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/GD-labs-part1/issues/new?title=Issue%20on%20page%20%2Flab-1-laval-nozzle.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lab-1-laval-nozzle.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Лабораторная работа №1: “Экспериментальное исследование течения в сопле Лаваля”</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Теоретическая часть</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Последовательность работы</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Вспомогательное</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table1">Таблица исходных данных</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table2">Таблица экспериментальных и теоретических результатов</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="o1">
+<h1>Лабораторная работа №1: “Экспериментальное исследование течения в сопле Лаваля”<a class="headerlink" href="#o1" title="Link to this heading">#</a></h1>
+<p><strong>Цель работы</strong> — экспериментально исследовать
+сверхзвуковое течение газа в сопле Лаваля.</p>
+<p><strong>Задачи работы:</strong></p>
+<ol class="arabic simple">
+<li><p>Провести эксперимент, в ходе которого измерить
+распределение давления газа по длине сопла
+и его тягу.</p></li>
+<li><p>Выполнить теоретический расчёт сопла Лаваля для тех же
+исходных данных.</p></li>
+<li><p>Сравнить теоретические и экспериментальные
+значения тяги сопла, а также распределение давления по длине
+его сверхзвуковой части.</p></li>
+</ol>
+<section id="id1">
+<h2>Теоретическая часть<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>В данной работе необходимо измерить тягу сопла Лаваля,
+а также построить распределение давления газа по длине его
+сверхзвуковой части.</p>
+<p>Тяга сопла рассчитывается по следующей формуле:</p>
+<div class="math notranslate nohighlight">
+\[
+P = G u_\mathrm{вых} + S_\mathrm{вых} (p_\mathrm{вых} - p_\mathrm{а}),
+\]</div>
+<p>где
+<span class="math notranslate nohighlight">\(G\)</span> — массовый расход воздуха через сопло, причём считаем,
+что <span class="math notranslate nohighlight">\(G = \mathrm{const}\)</span>;
+<span class="math notranslate nohighlight">\(u_\mathrm{вых}\)</span> — скорость на выходе сопла;
+<span class="math notranslate nohighlight">\(S_\mathrm{вых}\)</span> — площадь выходного сечения сопла;
+<span class="math notranslate nohighlight">\(p_\mathrm{вых}\)</span> — давление в выходном сечении;
+<span class="math notranslate nohighlight">\(p_\mathrm{а}\)</span> — атмосферное давление.</p>
+<p>В экспериментальной части лабораторной работы вы измеряете
+тягу <span class="math notranslate nohighlight">\(P_\mathrm{э}\)</span>, в теоретической — рассчитываете тягу сопла <span class="math notranslate nohighlight">\(P\)</span>
+согласно методическим указаниям по выполнению
+домашнего задания.</p>
+<p>В конечном счёте производите оценку
+погрешности между экспериментальным
+и теоретическим значениями тяги:</p>
+<div class="math notranslate nohighlight">
+\[
+\Delta_P = \frac{|P_\mathrm{э} - P|}{P_\mathrm{э}} \cdot 100\%.
+\]</div>
+<p>Также в эксперименте вы должны измерить давление по длине
+сопла <span class="math notranslate nohighlight">\(p_\mathrm{э}(x)\)</span> в нескольких точках <span class="math notranslate nohighlight">\(x_i\)</span>
+(где расположены дренажные отверстия в экспериментальном
+сопле), <span class="math notranslate nohighlight">\(i = \overline{1,N}\)</span>,
+где <span class="math notranslate nohighlight">\(N\)</span> — количество точек измерения давления.</p>
+<p>По результатам теоретических расчётов вы построите график
+давления по длине сопла <span class="math notranslate nohighlight">\(p(x)\)</span>.
+Отметив на этом график экспериментальные значения давления,
+вы сможете оценить оценку величины расхождения между
+экспериментальными и теоретическими данными в каждой точке
+<span class="math notranslate nohighlight">\(x_i\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\Delta_p(x_i) =
+    \frac{|p_\mathrm{э}(x_i) - p(x_i)|}{p_\mathrm{э}(x_i)}
+    \cdot 100\%.
+\]</div>
+<p>Последовательность теоретического расчёта тяги <span class="math notranslate nohighlight">\(P\)</span>
+и давления <span class="math notranslate nohighlight">\(p(x)\)</span> полностью совпадает с
+<a class="reference external" href="https://bmstu.press/catalog/item/7208/">методикой выполнения домашнего задания</a>.</p>
+<p>В отчёте по работе приведите:</p>
+<ul class="simple">
+<li><p>цель и задачи работы;</p></li>
+<li><p>схему и характеристики экспериментальной установки;</p></li>
+<li><p>геометрическую схему сопла с необходимыми размерами.</p></li>
+</ul>
+<p>В теоретической части приведите необходимые теоретические
+сведения и расчётные формулы.</p>
+<p>В практической части следует привести:</p>
+<ul class="simple">
+<li><p>исходные данные эксперимента и теоретического расчёта;</p></li>
+<li><p>экспериментальные и теоретические значения тяги сопла и
+давления по его длине, приводя расчётные формулы;</p></li>
+<li><p>график распределения давления <span class="math notranslate nohighlight">\(p(x)\)</span> с отмеченными на нём
+экспериментальными значениями <span class="math notranslate nohighlight">\(p_\mathrm{э}(x_i)\)</span>;</p></li>
+<li><p>оценку различия между экспериментальными и теоретическими
+результатами.</p></li>
+</ul>
+<p>Сделать выводы по выполненной работе.</p>
+</section>
+<section id="id2">
+<h2>Последовательность работы<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Записать величину атмосферного давления <span class="math notranslate nohighlight">\(p_\mathrm{а}\)</span>
+перед продувкой.</p></li>
+<li><p>Записать геометрические параметры сопла:
+диаметр входного сечения конфузора <span class="math notranslate nohighlight">\(d_к\)</span>,
+диаметр критического сечения <span class="math notranslate nohighlight">\(d_\mathrm{кр}\)</span> и диаметр выходного
+сечения <span class="math notranslate nohighlight">\(d_\mathrm{вых}\)</span>, угол сужения конфузора <span class="math notranslate nohighlight">\(\alpha\)</span>
+и угол расширения диффузора <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
+<li><p>Записать значения давления <span class="math notranslate nohighlight">\(p_0\)</span> и температуры газа <span class="math notranslate nohighlight">\(T_0\)</span>
+на входе сопла (в камере нагнетателя давления).</p></li>
+<li><p>Записать значения давления <span class="math notranslate nohighlight">\(p_\mathrm{э}(x_i)\)</span> по длине сопла.</p></li>
+<li><p>Записать значение тяги сопла <span class="math notranslate nohighlight">\(P_э\)</span>.</p></li>
+<li><p>Теоретически рассчитать <span class="math notranslate nohighlight">\(p(x)\)</span> и <span class="math notranslate nohighlight">\(P\)</span>
+по методике расчёта одномерных течений в сопле Лаваля.</p></li>
+<li><p>Сравнить экспериментальные результаты с теоретическими.</p></li>
+<li><p>Построить график <span class="math notranslate nohighlight">\(p(x)\)</span> с отмеченными на нём
+экспериментальными точками <span class="math notranslate nohighlight">\(p_\mathrm{э}(x_i)\)</span>.</p></li>
+<li><p>Оформить отчёт о лабораторной работе.</p></li>
+</ol>
+<p>В конце страницы приведены:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#table1"><span class="std std-ref">таблица исходных данных</span></a>, которую следует
+заполнить при посещении лаборатории газовой динамики;</p></li>
+<li><p><a class="reference internal" href="#table2"><span class="std std-ref">таблица результатов</span></a>.</p></li>
+</ul>
+<p>Структура отчёта:</p>
+<ol class="arabic simple">
+<li><p>Титульный лист.</p></li>
+<li><p>Цель и задачи работы.</p></li>
+<li><p>Теоретическая часть: описание теории по расчёту тяги сопла
+(со ссылкой на приложение с кодом программы).</p></li>
+<li><p>Практическая часть: схема лабораторной установки, геометрия
+сопла, показания датчиков, теоретическое распределение
+<span class="math notranslate nohighlight">\(p(x)\)</span> с экспериментальными отметками <span class="math notranslate nohighlight">\(p_\mathrm{э}(x_i)\)</span> и т.д.</p></li>
+<li><p>Выводы.</p></li>
+<li><p>Приложение с кодом программы.</p></li>
+</ol>
+</section>
+<section id="id3">
+<h2>Вспомогательное<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Оформление представленных таблиц не соответствует ГОСТ.
+Важна их структура, а с оформлением вы справитесь.</p>
+<section id="table1">
+<span id="id4"></span><h3>Таблица исходных данных<a class="headerlink" href="#table1" title="Link to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><span class="math notranslate nohighlight">\(d_\mathrm{к}\)</span>, мм</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(d_\mathrm{кр}\)</span>, мм</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(d_\mathrm{вых}\)</span>, мм</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(\alpha^\circ\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(\beta^\circ\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(p_\mathrm{а}\)</span>, МПа</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(p_0\)</span>, МПа</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(T_0\)</span>, К</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="table2">
+<span id="id5"></span><h3>Таблица экспериментальных и теоретических результатов<a class="headerlink" href="#table2" title="Link to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Дренажное отверстие №</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(x_i\)</span>, мм</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(p_\mathrm{э}(x_i)\)</span>, МПа</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(p(x_i)\)</span>, МПа</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(\Delta_p(x_i)\)</span>, %</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+<td class="text-center"><p>&lt;…&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Введение</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lab-2-trans-equation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Лабораторная работа №2: “Ударная труба”</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Теоретическая часть</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Последовательность работы</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Вспомогательное</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table1">Таблица исходных данных</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table2">Таблица экспериментальных и теоретических результатов</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

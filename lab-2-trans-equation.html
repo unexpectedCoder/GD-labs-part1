@@ -1,0 +1,890 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Лабораторная работа №2: “Ударная труба” &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lab-2-trans-equation';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Лабораторная работа №3: “Метание тел сжатым газом”" href="lab-3-compressed-gas-shooting.html" />
+    <link rel="prev" title="Лабораторная работа №1: “Экспериментальное исследование течения в сопле Лаваля”" href="lab-1-laval-nozzle.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Введение
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lab-1-laval-nozzle.html">Лабораторная работа №1: “Экспериментальное исследование течения в сопле Лаваля”</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Лабораторная работа №2: “Ударная труба”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab-3-compressed-gas-shooting.html">Лабораторная работа №3: “Метание тел сжатым газом”</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/GD-labs-part1" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/GD-labs-part1/issues/new?title=Issue%20on%20page%20%2Flab-2-trans-equation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lab-2-trans-equation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Лабораторная работа №2: “Ударная труба”</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Предварительная теория</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Численное интегрирование обыкновенного дифференциального уравнения: явный метод Эйлера</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Пример: остывание чашки кофе</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Уравнение переноса: физический и математический смысл</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Дискретизация уравнения переноса</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Аппроксимация производных конечными разностями</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Разностные схемы уравнения переноса</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Упражнение</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Лабораторная работа</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Часть 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Задача первой части лабораторной работы</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Часть 2 — задача Сода</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Теория</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="o2">
+<h1>Лабораторная работа №2: “Ударная труба”<a class="headerlink" href="#o2" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>Предварительная теория<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>Численное интегрирование обыкновенного дифференциального уравнения: явный метод Эйлера<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Рассмотрим дифференциальное уравнение вида</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\mathrm{d} s}{\mathrm{d} t} = \dot s(t) = f(s, t),
+\]</div>
+<p>при <span class="math notranslate nohighlight">\(t_0 \le t \le t_\mathrm{к}\)</span>,
+где <span class="math notranslate nohighlight">\(t_0\)</span> и <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span> — пределы интегрирования ОДУ по времени;
+<span class="math notranslate nohighlight">\(s(t=0) = s_0\)</span> — начальное условие.</p>
+<p>Найдем приближенное решение в момент <span class="math notranslate nohighlight">\(t_1 = t_0 + \Delta t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+s(t_0 + \Delta t) =
+s(t_0) +
+\Delta t \cdot \dot s(t_0) + O(\Delta t^2).
+\]</div>
+<p>Заменяя <span class="math notranslate nohighlight">\(\dot s\)</span> на <span class="math notranslate nohighlight">\(f(s, t)\)</span>, получим</p>
+<div class="math notranslate nohighlight">
+\[
+s(t_1) =
+s(t_0) +
+\Delta t \cdot f\left( s(t_0), t_0 \right).
+\]</div>
+<p>Выполняя этот процесс итерационно, найдем общее соотношение</p>
+<div class="math notranslate nohighlight">
+\[
+s(t_{n+1}) =
+s(t_n) +
+\Delta t \cdot f\left( s(t_n), t_n \right),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+t_{n+1} = t_n + \Delta t.
+\]</div>
+<p>Полученное уравнение можно записать в несколько упрощённом виде:</p>
+<div class="math notranslate nohighlight">
+\[
+s^{n+1} = s^n + \Delta t \cdot f(s^n, t_n),
+\]</div>
+<p>верхний индекс отвечает за номер шага по времени.</p>
+<p>Здесь <span class="math notranslate nohighlight">\(s(t_{n+1})\)</span> явно зависит от <span class="math notranslate nohighlight">\(s(t_n)\)</span> — <strong>метод явный</strong>.</p>
+<p>Данный метод довольно просто реализуется в виде кода.</p>
+</section>
+<section id="id3">
+<h3>Пример: остывание чашки кофе<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Скорость изменения температуры кофе в чашке определяется таким ОДУ:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\mathrm{d} T}{\mathrm{d} t} = -r (T - T_\mathrm{окр}),
+\]</div>
+<p>где
+<span class="math notranslate nohighlight">\(T_\mathrm{окр}\)</span> — температура окружающей среды;
+<span class="math notranslate nohighlight">\(r\)</span> — коэффициент “остывания” (теплоотдачи).</p>
+<p>Начальную температуру кофе обозначим как
+<span class="math notranslate nohighlight">\(T^0 = T(t=0)\)</span>.</p>
+<p>Численное решение этого уравнение явным методом Эйлера
+выглядит следующим образом:</p>
+<div class="math notranslate nohighlight">
+\[
+T^{n+1} = T^n - \Delta t \cdot r \cdot (T^n - T_\mathrm{окр}).
+\]</div>
+</section>
+<section id="id4">
+<h3>Уравнение переноса: физический и математический смысл<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Уравнение переноса для функции <span class="math notranslate nohighlight">\(s(t,x)\)</span> имеет вид</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial s}{\partial t} + c \frac{\partial s}{\partial x} = 0.
+\]</div>
+<p>Такое уравнение может описывать, например,
+концентрацию пыли в потоке воздуха.</p>
+<p>Начальное условие: <span class="math notranslate nohighlight">\(s(t=0) = q(x)\)</span>,
+где начальное распределение <span class="math notranslate nohighlight">\(q(x)\)</span> может описываться, к примеру,
+ступенчатой функцией:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+q(x) = \begin{cases}
+    0, &amp; x &lt; 0, \\
+    1, &amp; 0 \le x \le 1, \\
+    0, &amp; x &gt; 1.
+\end{cases}
+\end{split}\]</div>
+<p>Граничных условий нет (бесконечная прямая).</p>
+<p>Одномерное уравнение переноса имеет известное точное решение:</p>
+<div class="math notranslate nohighlight">
+\[
+s(t, x) = q(x - c t).
+\]</div>
+</section>
+<section id="id5">
+<h3>Дискретизация уравнения переноса<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Введём равномерную разностную сетку по координате
+<span class="math notranslate nohighlight">\(x_0, x_1, \ldots, x_N\)</span>, причём</p>
+<div class="math notranslate nohighlight">
+\[
+x_1 - x_0 = x_2 - x_1 = \ldots = x_N - x_{N-1} = \Delta x.
+\]</div>
+<p>Количество узлов сетки <span class="math notranslate nohighlight">\(N = (x_N - x_0) / \Delta x\)</span>.</p>
+<p>Искомая сеточная функция определена в каждой точке
+дискретной разностной сетки:
+<span class="math notranslate nohighlight">\(s_k = s(x_k)\)</span>.
+Нижний индекс отвечает за номер шага по координате (пространству).</p>
+<p>Зависимость от времени здесь опущена, но подразумевается.</p>
+</section>
+<section id="id6">
+<h3>Аппроксимация производных конечными разностями<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Разложим функцию <span class="math notranslate nohighlight">\(s(x)\)</span> в ряд Тейлора:</p>
+<div class="math notranslate nohighlight">
+\[
+s(x + \Delta x) =
+    s(x) +
+    \Delta x \cdot s'(x) +
+    \frac{\Delta x^2}{2!} s''(x) +
+    \frac{\Delta x^3}{3!} s'''(x) + \ldots,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+s(x - \Delta x) =
+    s(x) -
+    \Delta x \cdot s'(x) +
+    \frac{\Delta x^2}{2!} s''(x) -
+    \frac{\Delta x^3}{3!} s'''(x) + \ldots.
+\]</div>
+<p>Из первой формулы можно получить разность “вперёд”:</p>
+<div class="math notranslate nohighlight" id="equation-eq-diff-forward">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-diff-forward" title="Link to this equation">#</a></span>\[
+s'(x) =
+    \frac{s(x + \Delta x) - s(x)}{\Delta x} -
+    \frac{1}{2} \Delta x \cdot s''(x) - \ldots.
+\]</div>
+<p>Из второй формулы – разность “назад”:</p>
+<div class="math notranslate nohighlight" id="equation-eq-diff-backward">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-diff-backward" title="Link to this equation">#</a></span>\[
+s'(x) =
+    \frac{s(x) - s(x - \Delta x)}{\Delta x} +
+    \frac{1}{2} \Delta x \cdot s''(x) - \ldots.
+\]</div>
+<p>Вычитая эти формулы, получим центральную разность:</p>
+<div class="math notranslate nohighlight">
+\[
+s'(x) =
+    \frac{s(x + \Delta x) - s(x - \Delta x)}{2 \Delta x} -
+    \frac{1}{6} \Delta x^2 s'''(x) + \ldots.
+\]</div>
+</section>
+<section id="id7">
+<h3>Разностные схемы уравнения переноса<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Будем обозначать <span class="math notranslate nohighlight">\(s_i^n = s(x_i, t_n)\)</span>.</p>
+<p>Разность “вперёд” и по времени и по координате:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{{\color{purple} s_i^{n+1}} - s_i^n}{\Delta t} +
+c \frac{s_{i+1}^n - s_i^n}{\Delta x}
+= 0.
+\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Эта схема оказывается всегда неустойчивой.</p>
+</div>
+<p>Разность “вперёд” по времени и “назад” по координате:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{{\color{purple} s_i^{n+1}} - s_i^n}{\Delta t} +
+c \frac{s_i^n - s_{i-1}^n}{\Delta x}
+= 0.
+\]</div>
+<p>Условие Куранта-Фридрихса-Леви (CFL):</p>
+<div class="math notranslate nohighlight" id="equation-eq-cfl">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-cfl" title="Link to this equation">#</a></span>\[
+\mathrm{CFL} = c \frac{\Delta t}{\Delta x} &lt; 1.
+\]</div>
+<p>Неявная схема:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{{\color{purple} s_i^{n+1}} - s_i^n}{\Delta t} +
+c \frac{{\color{purple} s_i^{n+1}} - {\color{blue} s_{i-1}^{n+1}}}{\Delta x}
+= 0.
+\]</div>
+<p>Неявная схема сложнее в реализации, но она безусловно устойчива.</p>
+</section>
+</section>
+<section id="id8">
+<h2>Упражнение<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>В выражении критерия CFL <a class="reference internal" href="#equation-eq-cfl">(3)</a> написано строгое неравенство.
+Но что мы получим, если примем <span class="math notranslate nohighlight">\(\mathrm{CFL} = 1\)</span> и, исходя из этого,
+преобразуем выражения <a class="reference internal" href="#equation-eq-diff-forward">(1)</a> и <a class="reference internal" href="#equation-eq-diff-backward">(2)</a>?</p>
+<p>Проделайте это.
+Проанализируйте результат.
+Это закономерность или удачный случай?</p>
+</section>
+<section id="id9">
+<h2>Лабораторная работа<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h3>Часть 1<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Оттачиваем навыки Python и численного решения дифференциальных
+уравнений в частных производных, а именно, уравнения переноса.</p>
+<p>Само уравнение выглядит так:</p>
+<div class="math notranslate nohighlight" id="equation-eq-trans">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq-trans" title="Link to this equation">#</a></span>\[
+\frac{\partial s}{\partial t} +
+c \frac{\partial s}{\partial x}
+= 0,
+\]</div>
+<p>где
+<span class="math notranslate nohighlight">\(s\)</span> — некоторая физическая величина: концентрация вещества,
+плотность и т.д.;
+<span class="math notranslate nohighlight">\(c\)</span> — скорость переноса этой величины в данном случае
+в направлении оси <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>Запишем это уравнение в виде разностной схемы Эйлера:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{s_k^{n+1} - s_k^n}{\Delta t} +
+c \frac{s_{k+1}^n - s_k^n}{\Delta x}
+= 0,
+\]</div>
+<p>или</p>
+<div class="math notranslate nohighlight" id="equation-num-scheme">
+<span class="eqno">(5)<a class="headerlink" href="#equation-num-scheme" title="Link to this equation">#</a></span>\[
+s_k^{n+1} = s_k^n - c \frac{\Delta t}{\Delta x}
+(s_{k+1}^n - s_k^n),
+\]</div>
+<p>где верхний индекс отражает номер шага по времени,
+а нижний — по координате.</p>
+<p>При решении задачи Коши для уравнения
+<a class="reference internal" href="#equation-eq-trans">(4)</a> необходимо задать
+сетку <span class="math notranslate nohighlight">\(X\)</span> в пределах от <span class="math notranslate nohighlight">\(x_\mathrm{нач}\)</span> до <span class="math notranslate nohighlight">\(x_\mathrm{к}\)</span> с <span class="math notranslate nohighlight">\(N\)</span> узлами
+и начальное распределение функции <span class="math notranslate nohighlight">\(s\)</span> по этой сетке, т. е. функцию:</p>
+<div class="math notranslate nohighlight">
+\[
+s(t=0, x) = q(x).
+\]</div>
+<section id="id11">
+<h4>Задача первой части лабораторной работы<a class="headerlink" href="#id11" title="Link to this heading">#</a></h4>
+<p>Требуется написать программу решения уравнения
+<a class="reference internal" href="#equation-eq-trans">(4)</a>, используя схему <a class="reference internal" href="#equation-num-scheme">(5)</a> и
+обеспечивая её устойчивость.</p>
+</section>
+</section>
+<section id="id12">
+<h3>Часть 2 — задача Сода<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>Имеется бесконечной длины труба с непроницаемой перегородкой
+(мембраной) с координатой <span class="math notranslate nohighlight">\(x_а = 1/2\)</span>.
+Слева от перегородки находится идеальный газ с параметрами
+<span class="math notranslate nohighlight">\(p_\mathrm{л}\)</span>, <span class="math notranslate nohighlight">\(\rho_\mathrm{л}\)</span> и <span class="math notranslate nohighlight">\(u_\mathrm{л}\)</span>,
+справа — газ с параметрами
+<span class="math notranslate nohighlight">\(p_\mathrm{п}\)</span>, <span class="math notranslate nohighlight">\(\rho_\mathrm{п}\)</span> и <span class="math notranslate nohighlight">\(u_\mathrm{п}\)</span>.</p>
+<p>В момент времени <span class="math notranslate nohighlight">\(t=0\)</span> мембрана мгновенно исчезает.</p>
+<p><strong>Требуется</strong> определить параметры смеси газов на участке трубы
+<span class="math notranslate nohighlight">\(x \in [0; 1]\)</span> в заданный момент времени <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span>.
+Иными словами в момент времени <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span>
+найти распределение по длине трубы
+давления смеси <span class="math notranslate nohighlight">\(p(x)\)</span>,
+плотности <span class="math notranslate nohighlight">\(\rho(x)\)</span>,
+полной энергии <span class="math notranslate nohighlight">\(E(x)\)</span>,
+а также скорости <span class="math notranslate nohighlight">\(u(x)\)</span>.</p>
+<section id="id13">
+<h4>Теория<a class="headerlink" href="#id13" title="Link to this heading">#</a></h4>
+<p>Математически процессы, происходящие в рассматриваемой
+ударной трубе, описываются системой дифференциальных уравнений в
+частных производных — нестационарными уравнениями ГД — вида:</p>
+<div class="math notranslate nohighlight" id="equation-sod-system">
+<span class="eqno">(6)<a class="headerlink" href="#equation-sod-system" title="Link to this equation">#</a></span>\[\begin{split}
+\begin{cases}
+    \cfrac{\partial \rho}{\partial t} +
+    \cfrac{\partial \rho u}{\partial x}
+    = 0, \\
+    \cfrac{\partial \rho u}{\partial t} +
+    \cfrac{\partial}{\partial x} (\rho u^2 + p)
+    = 0, \\
+    \cfrac{\partial \rho E}{\partial t} +
+    \cfrac{\partial}{\partial x} \left[
+        \rho u \left( E + \cfrac{p}{\rho} \right)
+    \right]
+    = 0, \\
+    E = \varepsilon + \cfrac{u^2}{2}.
+\end{cases}
+\end{split}\]</div>
+<p>Систему <a class="reference internal" href="#equation-sod-system">(6)</a> можно переписать в векторном виде:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \vec q}{\partial t} +
+\frac{\partial \vec f}{\partial x}
+= 0,
+\]</div>
+<p>где
+<span class="math notranslate nohighlight">\(\vec q\)</span> — вектор канонических переменных:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\vec q = \left[\begin{matrix}
+    \rho \\ \rho u \\ \rho E
+\end{matrix}\right];
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\vec f\)</span> — вектор потоков:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\vec f = \left[\begin{matrix}
+    \rho u \\ \rho u^2 + p \\ \rho u H
+\end{matrix}\right];
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(E\)</span> — полная энергия газа;
+<span class="math notranslate nohighlight">\(\varepsilon\)</span> — внутренняя энергия газа;
+<span class="math notranslate nohighlight">\(H\)</span> — энтальпия газа, <span class="math notranslate nohighlight">\(H = E + p/\rho\)</span>;
+<span class="math notranslate nohighlight">\(p\)</span> — статическое давление газа;
+<span class="math notranslate nohighlight">\(\rho\)</span> — плотность газа;
+<span class="math notranslate nohighlight">\(u\)</span> — скорость газа.</p>
+<p>Полученное уравнение может быть решено численно
+методом Годунова:</p>
+<div class="math notranslate nohighlight" id="equation-eq-godunov">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-godunov" title="Link to this equation">#</a></span>\[
+\vec q_{k+1/2}^{n+1} =
+\vec q_{k+1/2}^{n} - \frac{\Delta t}{\Delta x}
+(\vec f_{k+1}^n - \vec f_k^n),
+\]</div>
+<p>где поток на левой границе ячейки <span class="math notranslate nohighlight">\(k+1/2\)</span> рассчитывается по методу Русанова:</p>
+<div class="math notranslate nohighlight" id="equation-eq-rusanov">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-rusanov" title="Link to this equation">#</a></span>\[
+\vec f_k^n =
+\frac{1}{2}
+\left[
+    \vec f_{k-1/2}^n + f_{k+1/2}^n -
+    c_\mathrm{max} (\vec q_{k+1/2}^n - \vec q_{k-1/2}^n)
+\right].
+\]</div>
+<p>В <a class="reference internal" href="#equation-eq-godunov">(7)</a> и <a class="reference internal" href="#equation-eq-rusanov">(8)</a> дробные индексы соответствуют центрам расчётных ячеек,
+целочисленные индексы — границам этих ячеек.
+Так, левая и правая граница ячейки <span class="math notranslate nohighlight">\(k+1/2\)</span> имеют индексы <span class="math notranslate nohighlight">\(k\)</span> и <span class="math notranslate nohighlight">\(k+1\)</span> соответственно.</p>
+<p>Таким образом, требуется решить систему уравнений <a class="reference internal" href="#equation-sod-system">(6)</a>
+методом Годунова <a class="reference internal" href="#equation-eq-godunov">(7)</a>,
+рассчитывая потоки на границах ячеек по формуле <a class="reference internal" href="#equation-eq-rusanov">(8)</a>.</p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lab-1-laval-nozzle.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Лабораторная работа №1: “Экспериментальное исследование течения в сопле Лаваля”</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lab-3-compressed-gas-shooting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Лабораторная работа №3: “Метание тел сжатым газом”</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Предварительная теория</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Численное интегрирование обыкновенного дифференциального уравнения: явный метод Эйлера</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Пример: остывание чашки кофе</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Уравнение переноса: физический и математический смысл</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Дискретизация уравнения переноса</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Аппроксимация производных конечными разностями</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Разностные схемы уравнения переноса</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Упражнение</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Лабораторная работа</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Часть 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Задача первой части лабораторной работы</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Часть 2 — задача Сода</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Теория</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
