@@ -1,0 +1,9 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: lab-1-laval-nozzle
+- file: lab-2-trans-equation
+- file: lab-3-compressed-gas-shooting
