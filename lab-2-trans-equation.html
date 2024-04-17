@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
@@ -42,7 +42,7 @@
   <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
@@ -422,7 +422,7 @@ document.write(`
 Что при этом произойдёт?
 Что за процесс начнётся и как он будет развиваться?
 В данной работе вам предстоит разобраться с этими вопросами.</p>
-<p>Однако начнём несколько издалека (оно того стоит)…</p>
+<p>Однако начнём несколько издалека.</p>
 <section id="id1">
 <h2>Уравнения газовой динамики<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>Из начала курса газовой динамики вы знаете, что в ней широко применяется модель сплошной среды.
@@ -486,7 +486,7 @@ document.write(`
 <p>С точки зрения численных расчётов подход Лагранжа соответствует системе частиц, с сеткой, соединяющей частицы (и, следовательно, также динамично изменяющейся), или без неё, а точка зрения Эйлера — использованию фиксированной пространственной сетки, которая не меняется в пространстве.</p>
 <p>Может показаться, что подход Эйлера неоправданно сложен: почему бы просто не использовать лагранжевы системы частиц?
 Действительно, существуют схемы, такие как метод вихрей и гидродинамика сглаженных частиц, в которых так и поступают.
-Однако даже они опираются на уравнения в Эйлеровой постановке для расчёта сил в жидкости.</p>
+Однако даже они опираются на уравнения в эйлеровой постановке для расчёта сил в жидкости.</p>
 <p>Преимущества постановки Эйлера:</p>
 <ul class="simple">
 <li><p>Аналитически работать с пространственными производными, такими как градиент давления и вязкость, проще в эйлеровом представлении.</p></li>
@@ -503,7 +503,7 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{split}
-\frac{\mathrm{d}}{\mathrm{d} t} s(t, \vec x(t))
+\frac{\mathrm{d}}{\mathrm{d} t} s(t, \vec x)
 &amp;=
 \frac{\partial s}{\partial t}
 + \nabla s \cdot \frac{\mathrm{d} \vec x}{\mathrm{d} t} \\
@@ -575,8 +575,8 @@ document.write(`
 <p><img alt="Линии тока и траектория" src="_images/streak_and_traj.gif" /></p>
 <p>Пунктирные линии соответствуют линиям тока с началом в фиксированных точках.
 Короткие засечки показывают направления касательных к линиям тока в фиксированных точках пространства.
-Красная кривая — траектория частицы, движущейся из начала координат.
-Синяя кривая — линия тока, которой принадлежит частица в каждый конкретный момент времени.</p>
+Красная кривая — траектория отдельной частицы, движущейся из начала координат.
+Синяя кривая — трек частиц, непрерывно вылетающих из начала координат (струйка).</p>
 </section>
 <section id="id3">
 <h2>Условие несжимаемости<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
@@ -929,11 +929,11 @@ s'(x) =
 В случае уравнения <em>адвекции</em> (переноса) с постоянной скоростью <span class="math notranslate nohighlight">\(u\)</span> значение <span class="math notranslate nohighlight">\(s(t^*, \vec x^*)\)</span> в точности равно <span class="math notranslate nohighlight">\(s(0, \vec x^* - u t^*)\)</span>, поэтому оно зависит только от одной точки в начальных условиях (от вектора <span class="math notranslate nohighlight">\(\vec x\)</span>).
 Для других уравнений в частных производных, таких как уравнение теплодиффузии <span class="math notranslate nohighlight">\(\partial s / \partial t = \nabla \cdot \nabla s\)</span>, каждая точка решения зависит от всех точек начальных условий.
 <em>Область зависимости</em> точки (расчётной сетки) — это именно набор точек, которые влияют на значение решения в этой точке.</p>
-<p>Каждая точка численного решения также имеет область зависимости: опять же, набор мест в начальных условиях, которые влияют на значение решения в рассматриваемой точке.
+<p>Каждая точка численного решения имеет область зависимости (набор мест в начальных условиях, которые влияют на значение решения в рассматриваемой точке).
 Вполне очевидно, что область зависимости при численном расчёте, по крайней мере в пределе, должна содержать истинную (математическую) область зависимости, чтобы численное решение вообще могло стремиться к точному решению.
 Это, по сути, и есть условие CFL: сходимость в общем случае возможна только в том случае, если в пределе <span class="math notranslate nohighlight">\(\Delta x \rightarrow 0\)</span> и <span class="math notranslate nohighlight">\(\Delta t \rightarrow 0\)</span> численная область зависимости для каждой точки содержит истинную область зависимости.</p>
 <p>При расчёте потенциального течения, например, условие CFL выполняется, если в пределе траектории жидких частиц достаточно близки к истинным траекториям — достаточно близко, чтобы они не выходили за границы ячеек, через которые проходит реальные траектории.
-Тогда, если мы не сделаем что-то сильно неправильное, в пределе траектории частиц должны сходиться к истинным.</p>
+Тогда траектории частиц должны в пределе сходиться к истинным.</p>
 <p>Тем не менее, для стандартных явных методов конечных разностей для уравнения переноса, где новое значение точки сетки <span class="math notranslate nohighlight">\(s_k^{n+1}\)</span> вычисляется на основе одного или нескольких предыдущих значений в соседних точках сетки, то есть из точек, удаленных только на <span class="math notranslate nohighlight">\(C \Delta x\)</span> при небольшой целочисленной константе <span class="math notranslate nohighlight">\(C\)</span>, существует гораздо более очевидное выражение CFL.
 В частности, точное решение движется со скоростью <span class="math notranslate nohighlight">\(\vec u\)</span>, поэтому скорость передачи информации при численном расчёте, то есть <span class="math notranslate nohighlight">\(C \Delta x / \Delta t\)</span>, должна быть как минимум такой же по величине.
 То есть для сходимости таких численных схем требуется соблюдение условия (в одномерном случае)</p>
@@ -953,16 +953,15 @@ s'(x) =
 Существуют также явные методы, которые стабильны для произвольных размеров временного шага, однако при этом могут привести к неправильному ответу, если не будет выполнено условие CFL.</p>
 <p>Чтобы ещё больше запутать всех, кого только можно, существует связанная с условием CFL величина, называемая числом CFL, часто обозначаемая как <span class="math notranslate nohighlight">\(\alpha\)</span>.
 Под <span class="math notranslate nohighlight">\(|u|\)</span> подразумевается некоторая характерная скорость потока.
-Как правило, в качестве <span class="math notranslate nohighlight">\(|u|\)</span> выбирается какое-то характерное значение.
-К примеру, при расчёте волнового процесса выбирают скорость звука как максимальную скорость распространения возмущений (информации) в среде.
+К примеру, при расчёте волнового процесса выбирают скорость звука <span class="math notranslate nohighlight">\(c\)</span> как максимальную скорость распространения возмущений (информации) в среде.
 Тогда число CFL <span class="math notranslate nohighlight">\(\alpha\)</span> определяется так:</p>
 <div class="math notranslate nohighlight" id="equation-eq-cfl-number">
 <span class="eqno">(14)<a class="headerlink" href="#equation-eq-cfl-number" title="Link to this equation">#</a></span>\[
 \Delta t = \alpha \frac{\Delta x}{c}.
 \]</div>
-<p>Таким образом, временной шаг, о котором говорилось выше (неравенство <a class="reference internal" href="#equation-eq-time-step">(12)</a>), можно выразить как задание числа CFL, равного пяти.
-Число же CFL само по себе является просто полезным параметром, а не условием чего-либо.</p>
-<p>В лабораторной работе используйте <span class="math notranslate nohighlight">\(\alpha &lt; 1\)</span>.</p>
+<p>Таким образом, временной шаг, о котором говорилось выше (неравенство <a class="reference internal" href="#equation-eq-time-step">(12)</a>), можно выразить как задание числа CFL <span class="math notranslate nohighlight">\(\alpha\)</span>, равного пяти.
+Число CFL само по себе является просто полезным параметром, а не условием чего-либо.</p>
+<p>В лабораторной работе используйте <span class="math notranslate nohighlight">\(\alpha \le 1\)</span>.</p>
 </section>
 <section id="id11">
 <h3>Численная диффузия<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
@@ -970,8 +969,8 @@ s'(x) =
 А где аппроксимация, там и численные ошибки.
 Посмотрим, к какой ошибке приводит явная схема Эйлера.
 Для этого рассмотрим одномерное уравнение переноса</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-eq-first-eq-of-num-diffusion">
+<span class="eqno">(15)<a class="headerlink" href="#equation-eq-first-eq-of-num-diffusion" title="Link to this equation">#</a></span>\[
 \frac{\partial s}{\partial t}
 + u \frac{\partial s}{\partial x}
 =
@@ -980,20 +979,20 @@ s'(x) =
 <p>Допустим, что за шаг по времени <span class="math notranslate nohighlight">\(\Delta t\)</span> каждая <span class="math notranslate nohighlight">\(i\)</span>-ая жидкая частица проходит расстояние, не превышающее размер ячейки <span class="math notranslate nohighlight">\(\Delta x\)</span>, то есть <span class="math notranslate nohighlight">\(\Delta t &lt; \Delta x / u\)</span> и частица находится на отрезке <span class="math notranslate nohighlight">\([x_{i-1}; x_i]\)</span>.
 Тогда мы можем аппроксимировать <span class="math notranslate nohighlight">\(s_i^{n+1}\)</span> следующим образом:</p>
 <div class="math notranslate nohighlight" id="equation-eq-s-approx">
-<span class="eqno">(15)<a class="headerlink" href="#equation-eq-s-approx" title="Link to this equation">#</a></span>\[
+<span class="eqno">(16)<a class="headerlink" href="#equation-eq-s-approx" title="Link to this equation">#</a></span>\[
 s_i^{n+1} = \alpha s_{i-1}^n + (1 - \alpha) s_i^n,
 \]</div>
 <p>где <span class="math notranslate nohighlight">\(\alpha = \Delta t u / \Delta x\)</span> — число CFL.</p>
 <p>Перепишем полученное выражение в таком виде:</p>
 <div class="math notranslate nohighlight" id="equation-eq-euler-scheme-alpha">
-<span class="eqno">(16)<a class="headerlink" href="#equation-eq-euler-scheme-alpha" title="Link to this equation">#</a></span>\[
+<span class="eqno">(17)<a class="headerlink" href="#equation-eq-euler-scheme-alpha" title="Link to this equation">#</a></span>\[
 s_i^{n+1}
 =
 s_i^n
 - \Delta t u \cfrac{s_i^n - s_{i-1}^n}{\Delta x}.
 \]</div>
 <p>Это та же самая явная схема Эйлера, что мы получили ранее (схема вперёд по времени и назад по координате).</p>
-<p>Но теперь применим приём <em>обратного анализа ошибок</em> и разложим <span class="math notranslate nohighlight">\(s_{i-1}^n\)</span> в ряд Тейлора в окрестности <span class="math notranslate nohighlight">\(\Delta x\)</span> относительно <span class="math notranslate nohighlight">\(s_i^n\)</span>:</p>
+<p>Теперь применим приём <em>обратного анализа ошибок</em> и разложим <span class="math notranslate nohighlight">\(s_{i-1}^n\)</span> в ряд Тейлора в окрестности <span class="math notranslate nohighlight">\(\Delta x\)</span> относительно <span class="math notranslate nohighlight">\(s_i^n\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 s_{i-1}^n
@@ -1003,7 +1002,7 @@ s_i^n
 + \left( \frac{\partial^2 s}{\partial x^2} \right)_i^n \frac{\Delta x^2}{2}
 + O(x^3).
 \]</div>
-<p>Подставим это разложение в <a class="reference internal" href="#equation-eq-euler-scheme-alpha">(16)</a>:</p>
+<p>Подставим это разложение в <a class="reference internal" href="#equation-eq-euler-scheme-alpha">(17)</a>:</p>
 <div class="math notranslate nohighlight">
 \[
 s_i^{n+1}
@@ -1036,31 +1035,37 @@ s_i^n
 \neq
 0.
 \]</div>
-<p>Но это не совсем то уравнение, с которого мы начали.
+<p>Но это совсем не то уравнение <a class="reference internal" href="#equation-eq-first-eq-of-num-diffusion">(15)</a>, с которого мы начали.
 Мы обнаружили, что явный метод Эйлера приводит к <em>численной диффузии</em>, выражающейся в появлении <em>численной (искусственной) вязкости</em> (в правой части уравнения).
 Очевидно, что чем меньше <span class="math notranslate nohighlight">\(\Delta x\)</span>, тем меньше и вклад численной вязкости в итоговый результат, но до конца избавиться от неё простым уменьшением шага невозможно.
-Вместо этого используют более сложные схемы аппроксимации (метод Рунге и другие полиномиальные методы третьего и четвёртого порядка точности), то есть усложняется выражение <a class="reference internal" href="#equation-eq-s-approx">(15)</a>.
+Вместо этого используют более сложные схемы аппроксимации (метод Рунге и другие полиномиальные методы третьего и четвёртого порядка точности), то есть усложняется выражение <a class="reference internal" href="#equation-eq-s-approx">(16)</a>.
 Об этом читайте дополнительную литературу.
-Здесь мы лишь показали, к какому серьёзному явлению приводят конечно-разностные аппроксимации производных, а именно, к решению другого дифференциального уравнения.
-Стоит отметить, что подобный анализ гораздо сложнее в двумерном и трёхмерном случаях.</p>
+Здесь мы лишь увидели, к какому серьёзному явлению приводят конечно-разностные аппроксимации производных, а именно, к решению другого дифференциального уравнения.
+Стоит отметить, что подобный анализ в двумерном и трёхмерном случаях гораздо сложнее.</p>
 </section>
 </section>
 <section id="id12">
 <h2>Лабораторная работа<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p><strong>Цель работы</strong> — получить навыки численного решения дифференциальных уравнений в частных производных на примере уравнения переноса и задачи о распаде разрыва.</p>
 <section id="id13">
 <h3>Часть 1<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
-<p>Оттачиваем навыки Python и численного решения дифференциальных
-уравнений в частных производных, а именно, уравнения переноса.</p>
-<p>Само уравнение выглядит так:</p>
+<p><strong>Задачи работы:</strong></p>
+<ol class="arabic simple">
+<li><p>Численно решить уравнение переноса.
+Сравнить численное решение с точным.</p></li>
+<li><p>Объяснить результаты численного решения при <span class="math notranslate nohighlight">\(\alpha &lt; 1\)</span> и <span class="math notranslate nohighlight">\(\alpha = 1\)</span>.
+Чем объясняется несоответствие численного решения точному при <span class="math notranslate nohighlight">\(\alpha &lt; 1\)</span>?</p></li>
+</ol>
+<p>Уравнение переноса выглядит так:</p>
 <div class="math notranslate nohighlight" id="equation-eq-trans">
-<span class="eqno">(17)<a class="headerlink" href="#equation-eq-trans" title="Link to this equation">#</a></span>\[
+<span class="eqno">(18)<a class="headerlink" href="#equation-eq-trans" title="Link to this equation">#</a></span>\[
 \frac{\partial s}{\partial t}
 + u \frac{\partial s}{\partial x}
 = 0,
 \]</div>
 <p>где
-<span class="math notranslate nohighlight">\(s\)</span> — некоторая физическая величина: концентрация вещества, плотность и т.д.;
-<span class="math notranslate nohighlight">\(u\)</span> — скорость переноса этой величины в данном случае в направлении оси <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<span class="math notranslate nohighlight">\(s\)</span> — некоторая физическая величина: концентрация чего-либо в потоке жидкости (газа), плотность и т.д.;
+<span class="math notranslate nohighlight">\(u\)</span> — скорость переноса величины <span class="math notranslate nohighlight">\(s\)</span> в направлении оси <span class="math notranslate nohighlight">\(x\)</span> в данном случае.</p>
 <p>Запишем это уравнение в виде разностной схемы Эйлера:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1070,29 +1075,38 @@ s_i^n
 \]</div>
 <p>или</p>
 <div class="math notranslate nohighlight" id="equation-num-scheme">
-<span class="eqno">(18)<a class="headerlink" href="#equation-num-scheme" title="Link to this equation">#</a></span>\[
+<span class="eqno">(19)<a class="headerlink" href="#equation-num-scheme" title="Link to this equation">#</a></span>\[
 s_k^{n+1} = s_k^n - u \frac{\Delta t}{\Delta x}
 (s_{k+1}^n - s_k^n).
 \]</div>
-<p>При решении задачи Коши для уравнения <a class="reference internal" href="#equation-eq-trans">(17)</a> необходимо задать сетку <span class="math notranslate nohighlight">\(X\)</span> в пределах от <span class="math notranslate nohighlight">\(x_\mathrm{нач}\)</span> до <span class="math notranslate nohighlight">\(x_\mathrm{к}\)</span> с <span class="math notranslate nohighlight">\(N\)</span> узлами и начальное распределение функции <span class="math notranslate nohighlight">\(s\)</span> по этой сетке, то есть функцию:</p>
+<p>При решении задачи Коши для уравнения <a class="reference internal" href="#equation-eq-trans">(18)</a> необходимо задать сетку <span class="math notranslate nohighlight">\(X\)</span> в пределах от <span class="math notranslate nohighlight">\(x_\mathrm{нач}\)</span> до <span class="math notranslate nohighlight">\(x_\mathrm{к}\)</span> с <span class="math notranslate nohighlight">\(N\)</span> узлами и начальное распределение функции <span class="math notranslate nohighlight">\(s\)</span> по этой сетке, то есть функцию:</p>
 <div class="math notranslate nohighlight">
 \[
 q(x) = s(t=0, x).
 \]</div>
-<p>Требуется написать программу решения уравнения <a class="reference internal" href="#equation-eq-trans">(17)</a>, используя схему <a class="reference internal" href="#equation-num-scheme">(18)</a> и обеспечивая её устойчивость.</p>
+<p>Требуется написать программу решения уравнения <a class="reference internal" href="#equation-eq-trans">(18)</a>, используя схему <a class="reference internal" href="#equation-num-scheme">(19)</a> и обеспечивая её устойчивость.</p>
 </section>
 <section id="id14">
 <h3>Часть 2 — задача Сода<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p><strong>Цель работы</strong> — получить навыки численного решения задачи с разрывом, а именно, задачи о распаде разрыва.</p>
 <p>Имеется бесконечной длины труба с непроницаемой перегородкой (мембраной) с координатой <span class="math notranslate nohighlight">\(x_а = 1/2\)</span>.
 Слева от перегородки находится идеальный газ с параметрами <span class="math notranslate nohighlight">\(p_\mathrm{л}\)</span>, <span class="math notranslate nohighlight">\(\rho_\mathrm{л}\)</span> и <span class="math notranslate nohighlight">\(u_\mathrm{л}\)</span>, справа — газ с параметрами <span class="math notranslate nohighlight">\(p_\mathrm{п}\)</span>, <span class="math notranslate nohighlight">\(\rho_\mathrm{п}\)</span> и <span class="math notranslate nohighlight">\(u_\mathrm{п}\)</span>.
 В момент времени <span class="math notranslate nohighlight">\(t=0\)</span> мембрана мгновенно исчезает.</p>
-<p><strong>Требуется</strong> определить параметры смеси газов на участке трубы <span class="math notranslate nohighlight">\(x \in [0; 1]\)</span> в заданный момент времени <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span>.
-Иными словами в момент времени <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span> найти распределение по длине трубы давления смеси <span class="math notranslate nohighlight">\(p(x)\)</span>, плотности <span class="math notranslate nohighlight">\(\rho(x)\)</span>, полной энергии <span class="math notranslate nohighlight">\(E(x)\)</span>, а также скорости <span class="math notranslate nohighlight">\(u(x)\)</span>.</p>
+<p><strong>Задачи работы:</strong></p>
+<ol class="arabic simple">
+<li><p>Определить параметры смеси газов на участке трубы <span class="math notranslate nohighlight">\(x \in [0; 1]\)</span> в заданный момент времени <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span>.
+Иными словами в момент времени <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span> найти распределение по длине трубы давления смеси <span class="math notranslate nohighlight">\(p(x)\)</span>, плотности <span class="math notranslate nohighlight">\(\rho(x)\)</span>, полной энергии <span class="math notranslate nohighlight">\(E(x)\)</span>, а также скорости <span class="math notranslate nohighlight">\(u(x)\)</span>.</p></li>
+<li><p>Объяснить полученные результаты.
+Как развивается процесс?</p></li>
+<li><p>Посмотрите, что происходит при различных соотношениях начальных давлений в частях трубы.
+Объясните наблюдаемые изменения в решении.</p></li>
+<li><p>Сравнить полученное численное решение с точным.</p></li>
+</ol>
 <section id="id15">
 <h4>Теория<a class="headerlink" href="#id15" title="Link to this heading">#</a></h4>
-<p>Математически процессы, происходящие в рассматриваемой ударной трубе, описываются системой дифференциальных уравнений в частных производных — нестационарными уравнениями ГД — вида:</p>
+<p>Математически процессы, происходящие в рассматриваемой ударной трубе, описываются системой дифференциальных уравнений в частных производных (нестационарными уравнениями ГД) вида</p>
 <div class="math notranslate nohighlight" id="equation-sod-system">
-<span class="eqno">(19)<a class="headerlink" href="#equation-sod-system" title="Link to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(20)<a class="headerlink" href="#equation-sod-system" title="Link to this equation">#</a></span>\[\begin{split}
 \begin{cases}
     \cfrac{\partial \rho}{\partial t} +
     \cfrac{\partial \rho u}{\partial x}
@@ -1108,7 +1122,7 @@ q(x) = s(t=0, x).
     E = \varepsilon + \cfrac{u^2}{2}.
 \end{cases}
 \end{split}\]</div>
-<p>Систему <a class="reference internal" href="#equation-sod-system">(19)</a> можно переписать в векторном виде:</p>
+<p>Систему <a class="reference internal" href="#equation-sod-system">(20)</a> можно переписать в векторном виде:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\partial \vec q}{\partial t}
@@ -1138,14 +1152,14 @@ q(x) = s(t=0, x).
 <span class="math notranslate nohighlight">\(u\)</span> — скорость газа.</p>
 <p>Полученное уравнение может быть решено численно методом Годунова:</p>
 <div class="math notranslate nohighlight" id="equation-eq-godunov">
-<span class="eqno">(20)<a class="headerlink" href="#equation-eq-godunov" title="Link to this equation">#</a></span>\[
+<span class="eqno">(21)<a class="headerlink" href="#equation-eq-godunov" title="Link to this equation">#</a></span>\[
 \vec q_{k+1/2}^{n+1} =
 \vec q_{k+1/2}^{n} - \frac{\Delta t}{\Delta x}
 (\vec f_{k+1}^n - \vec f_k^n),
 \]</div>
 <p>где поток на левой границе ячейки <span class="math notranslate nohighlight">\(k+1/2\)</span> рассчитывается по методу Русанова:</p>
 <div class="math notranslate nohighlight" id="equation-eq-rusanov">
-<span class="eqno">(21)<a class="headerlink" href="#equation-eq-rusanov" title="Link to this equation">#</a></span>\[
+<span class="eqno">(22)<a class="headerlink" href="#equation-eq-rusanov" title="Link to this equation">#</a></span>\[
 \vec f_k^n =
 \frac{1}{2}
 \left[
@@ -1154,14 +1168,14 @@ q(x) = s(t=0, x).
 \right],
 \]</div>
 <p>где <span class="math notranslate nohighlight">\(c_\mathrm{max}\)</span> — максимальная скорость звука на расчётной сетке.</p>
-<p>В <a class="reference internal" href="#equation-eq-godunov">(20)</a> и <a class="reference internal" href="#equation-eq-rusanov">(21)</a> дробные индексы соответствуют центрам расчётных ячеек, целочисленные индексы — границам этих ячеек.
+<p>В <a class="reference internal" href="#equation-eq-godunov">(21)</a> и <a class="reference internal" href="#equation-eq-rusanov">(22)</a> дробные индексы соответствуют центрам расчётных ячеек, целочисленные индексы — границам этих ячеек.
 Так, левая и правая граница ячейки с индексом <span class="math notranslate nohighlight">\(k+1/2\)</span> имеют индексы <span class="math notranslate nohighlight">\(k\)</span> и <span class="math notranslate nohighlight">\(k+1\)</span> соответственно.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Если вы задали число ячеек расчётной сетки <span class="math notranslate nohighlight">\(N\)</span>, то число граничных точек будет <span class="math notranslate nohighlight">\(N + 1\)</span>.
 Это важно помнить при формировании массивов значений величин с дробными и целыми индексами.</p>
 </div>
-<p>Таким образом, требуется решить систему уравнений <a class="reference internal" href="#equation-sod-system">(19)</a> методом Годунова <a class="reference internal" href="#equation-eq-godunov">(20)</a>, рассчитывая потоки на границах ячеек по формуле <a class="reference internal" href="#equation-eq-rusanov">(21)</a>.</p>
+<p>Таким образом, требуется решить систему уравнений <a class="reference internal" href="#equation-sod-system">(20)</a> методом Годунова <a class="reference internal" href="#equation-eq-godunov">(21)</a>, рассчитывая потоки на границах ячеек по формуле <a class="reference internal" href="#equation-eq-rusanov">(22)</a>.</p>
 </section>
 </section>
 </section>
