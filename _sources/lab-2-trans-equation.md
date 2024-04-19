@@ -812,11 +812,11 @@ $$
 
 **Тестовые исходные данные:**
 
-* $\p_\mathrm{л} = 1.0$,
+* $p_\mathrm{л} = 1.0$,
 * $\rho_\mathrm{л} = 1.0$,
-* $\p_\mathrm{п} = 0.1$,
+* $p_\mathrm{п} = 0.1$,
 * $\rho_\mathrm{п} = 0.125$,
-* $\u_\mathrm{л} = \u_\mathrm{п} = 0$,
+* $u_\mathrm{л} = u_\mathrm{п} = 0$,
 * $t_\mathrm{к} = 0.15$.
 
 
