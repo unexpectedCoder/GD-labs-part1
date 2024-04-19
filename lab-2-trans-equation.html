@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
@@ -396,7 +396,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Лабораторная работа</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Часть 1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Часть 2 — задача Сода</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Теория</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Физика</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Математическая модель</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Численная схема</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Алгоритм решения</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Точное решение</a></li>
 </ul>
 </li>
 </ul>
@@ -1088,23 +1092,53 @@ q(x) = s(t=0, x).
 </section>
 <section id="id14">
 <h3>Часть 2 — задача Сода<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
-<p><strong>Цель работы</strong> — получить навыки численного решения задачи с разрывом, а именно, задачи о распаде разрыва.</p>
-<p>Имеется бесконечной длины труба с непроницаемой перегородкой (мембраной) с координатой <span class="math notranslate nohighlight">\(x_а = 1/2\)</span>.
+<p><strong>Цель работы</strong> — получить навыки численного решения задачи с разрывом, а именно, задачи Сода.</p>
+<p>Имеется бесконечной длины труба с непроницаемой перегородкой (мембраной) с координатой <span class="math notranslate nohighlight">\(x_\mathrm{р} = 1/2\)</span>.
 Слева от перегородки находится идеальный газ с параметрами <span class="math notranslate nohighlight">\(p_\mathrm{л}\)</span>, <span class="math notranslate nohighlight">\(\rho_\mathrm{л}\)</span> и <span class="math notranslate nohighlight">\(u_\mathrm{л}\)</span>, справа — газ с параметрами <span class="math notranslate nohighlight">\(p_\mathrm{п}\)</span>, <span class="math notranslate nohighlight">\(\rho_\mathrm{п}\)</span> и <span class="math notranslate nohighlight">\(u_\mathrm{п}\)</span>.
 В момент времени <span class="math notranslate nohighlight">\(t=0\)</span> мембрана мгновенно исчезает.</p>
 <p><strong>Задачи работы:</strong></p>
 <ol class="arabic simple">
 <li><p>Определить параметры смеси газов на участке трубы <span class="math notranslate nohighlight">\(x \in [0; 1]\)</span> в заданный момент времени <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span>.
-Иными словами в момент времени <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span> найти распределение по длине трубы давления смеси <span class="math notranslate nohighlight">\(p(x)\)</span>, плотности <span class="math notranslate nohighlight">\(\rho(x)\)</span>, полной энергии <span class="math notranslate nohighlight">\(E(x)\)</span>, а также скорости <span class="math notranslate nohighlight">\(u(x)\)</span>.</p></li>
+Иными словами в момент времени <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span> найти распределение по длине трубы давления газа <span class="math notranslate nohighlight">\(p(x)\)</span>, плотности <span class="math notranslate nohighlight">\(\rho(x)\)</span>, полной энергии <span class="math notranslate nohighlight">\(E(x)\)</span> и скорости <span class="math notranslate nohighlight">\(u(x)\)</span>.</p></li>
 <li><p>Объяснить полученные результаты.
 Как развивается процесс?</p></li>
 <li><p>Посмотрите, что происходит при различных соотношениях начальных давлений в частях трубы.
 Объясните наблюдаемые изменения в решении.</p></li>
 <li><p>Сравнить полученное численное решение с точным.</p></li>
 </ol>
+<p><strong>Тестовые исходные данные:</strong></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\p_\mathrm{л} = 1.0\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho_\mathrm{л} = 1.0\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\p_\mathrm{п} = 0.1\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho_\mathrm{п} = 0.125\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\u_\mathrm{л} = \u_\mathrm{п} = 0\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(t_\mathrm{к} = 0.15\)</span>.</p></li>
+</ul>
 <section id="id15">
-<h4>Теория<a class="headerlink" href="#id15" title="Link to this heading">#</a></h4>
-<p>Математически процессы, происходящие в рассматриваемой ударной трубе, описываются системой дифференциальных уравнений в частных производных (нестационарными уравнениями ГД) вида</p>
+<h4>Физика<a class="headerlink" href="#id15" title="Link to this heading">#</a></h4>
+<p>Задача Сода является одномерным случаем общей задачи Римана о распаде произвольного разрыва.
+В данном случае разрыв представлен различными значениями термодинамических параметров газа в двух частях трубы.
+Когда перегородка исчезает, разрыв начинает распадаться, поскольку является нестабильной структурой.
+Газ из области высокого давления начинает движение в область низкого давления.
+При этом имеют место быть интересные явления, а именно, образуется и распространяется ударная волна.
+Она движется в область низкого давления, скачкообразно меняя параметры невозмущённого газа и вовлекая его в движение.
+В другом направлении распространяется волна разряжения.
+Там давление уменьшается.</p>
+<p>Помимо ударный волны наблюдается ещё одна поверхность разрыва — контактный разрыв, представляющий собой поверхность, через которую отсутствует поток вещества.
+Это означает, что газы не смешиваются.
+На контактном разрыве скачок испытывает плотность и температура, но не давление.
+Этим контактный разрыв отличается от ударной волны, в которой скачком меняются все параметры газа.</p>
+<p>Помимо некоторых лабораторных установок для создания сверхзвуковых течений, разрывы наблюдаются и в природе.
+Примеров множество.
+От антициклонов (встречи масс холодного и теплого воздуха) до джетов галактических ядер и остатков сверхновых звёзд.</p>
+<p>Задача Сода, которую вам предстоит решить, является простейшим случаем задачи о распаде разрыва, модельной задачей.
+В своё время она сыграла важную роль в науке, поскольку на ней учёные исследовали и разрабатывали численные схемы, позволяющие решать задачи с разрывами.
+Одна из таких схем — схема (метод) Годунова.</p>
+</section>
+<section id="id16">
+<h4>Математическая модель<a class="headerlink" href="#id16" title="Link to this heading">#</a></h4>
+<p>Математически процессы, происходящие в рассматриваемой ударной трубе, описываются системой дифференциальных уравнений в частных производных (нестационарными уравнениями ГД) <em>гиперболического типа</em>:</p>
 <div class="math notranslate nohighlight" id="equation-sod-system">
 <span class="eqno">(20)<a class="headerlink" href="#equation-sod-system" title="Link to this equation">#</a></span>\[\begin{split}
 \begin{cases}
@@ -1123,14 +1157,14 @@ q(x) = s(t=0, x).
 \end{cases}
 \end{split}\]</div>
 <p>Систему <a class="reference internal" href="#equation-sod-system">(20)</a> можно переписать в векторном виде:</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-eq-sod">
+<span class="eqno">(21)<a class="headerlink" href="#equation-eq-sod" title="Link to this equation">#</a></span>\[
 \frac{\partial \vec q}{\partial t}
-+ \frac{\partial \vec f}{\partial x} =
++ \frac{\partial \vec f(\vec q)}{\partial x} =
 0,
 \]</div>
 <p>где
-<span class="math notranslate nohighlight">\(\vec q\)</span> — вектор канонических переменных:</p>
+<span class="math notranslate nohighlight">\(\vec q\)</span> — вектор консервативных переменных:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \vec q = \left[\begin{matrix}
@@ -1145,37 +1179,159 @@ q(x) = s(t=0, x).
 \end{matrix}\right];
 \end{split}\]</div>
 <p><span class="math notranslate nohighlight">\(E\)</span> — полная энергия газа;
-<span class="math notranslate nohighlight">\(\varepsilon\)</span> — внутренняя энергия газа;
-<span class="math notranslate nohighlight">\(H\)</span> — энтальпия газа, <span class="math notranslate nohighlight">\(H = E + p/\rho\)</span>;
-<span class="math notranslate nohighlight">\(p\)</span> — статическое давление газа;
+<span class="math notranslate nohighlight">\(\varepsilon\)</span> — внутренняя энергия газа:</p>
+<div class="math notranslate nohighlight">
+\[
+\varepsilon = \frac{1}{k - 1} \frac{p}{\rho};
+\]</div>
+<p><span class="math notranslate nohighlight">\(H\)</span> — энтальпия газа, <span class="math notranslate nohighlight">\(H = E + p/\rho\)</span>;
+<span class="math notranslate nohighlight">\(p\)</span> — давление газа;
 <span class="math notranslate nohighlight">\(\rho\)</span> — плотность газа;
 <span class="math notranslate nohighlight">\(u\)</span> — скорость газа.</p>
-<p>Полученное уравнение может быть решено численно методом Годунова:</p>
+<p>Дифференциальное уравнение с частными производными <a class="reference internal" href="#equation-eq-sod">(21)</a> является уравнением гиперболического типа.
+С физической точки зрения уравнения такого типа описывают процессы распространения волн и сигналов с конечной скоростью.
+В данном случае уравнение <a class="reference internal" href="#equation-eq-sod">(21)</a> есть закон сохранения величины <span class="math notranslate nohighlight">\(\vec q\)</span> при её изменении (движении) в пространстве со скоростью, определяемой функцией потоков <span class="math notranslate nohighlight">\(\vec f(\vec q)\)</span>.</p>
+</section>
+<section id="id17">
+<h4>Численная схема<a class="headerlink" href="#id17" title="Link to this heading">#</a></h4>
+<p>Уравнение <a class="reference internal" href="#equation-eq-sod">(21)</a> может быть решено численно методом Годунова:</p>
 <div class="math notranslate nohighlight" id="equation-eq-godunov">
-<span class="eqno">(21)<a class="headerlink" href="#equation-eq-godunov" title="Link to this equation">#</a></span>\[
+<span class="eqno">(22)<a class="headerlink" href="#equation-eq-godunov" title="Link to this equation">#</a></span>\[
 \vec q_{k+1/2}^{n+1} =
 \vec q_{k+1/2}^{n} - \frac{\Delta t}{\Delta x}
 (\vec f_{k+1}^n - \vec f_k^n),
 \]</div>
-<p>где поток на левой границе ячейки <span class="math notranslate nohighlight">\(k+1/2\)</span> рассчитывается по методу Русанова:</p>
+<p>где поток на границе <span class="math notranslate nohighlight">\(x_k\)</span> ячеек <span class="math notranslate nohighlight">\(k-1/2\)</span> и <span class="math notranslate nohighlight">\(k+1/2\)</span> рассчитывается по методу Русанова:</p>
 <div class="math notranslate nohighlight" id="equation-eq-rusanov">
-<span class="eqno">(22)<a class="headerlink" href="#equation-eq-rusanov" title="Link to this equation">#</a></span>\[
-\vec f_k^n =
-\frac{1}{2}
-\left[
-    \vec f_{k-1/2}^n + f_{k+1/2}^n -
-    c_\mathrm{max} (\vec q_{k+1/2}^n - \vec q_{k-1/2}^n)
-\right],
+<span class="eqno">(23)<a class="headerlink" href="#equation-eq-rusanov" title="Link to this equation">#</a></span>\[
+\vec f_k^n = \frac{1}{2} \left(
+    \vec f_{k-1/2}^n + f_{k+1/2}^n
+\right)
+- \frac{1}{2} c_k^n \left(
+    \vec q_{k+1/2}^n - \vec q_{k-1/2}^n
+\right),
 \]</div>
-<p>где <span class="math notranslate nohighlight">\(c_\mathrm{max}\)</span> — максимальная скорость звука на расчётной сетке.</p>
-<p>В <a class="reference internal" href="#equation-eq-godunov">(21)</a> и <a class="reference internal" href="#equation-eq-rusanov">(22)</a> дробные индексы соответствуют центрам расчётных ячеек, целочисленные индексы — границам этих ячеек.
-Так, левая и правая граница ячейки с индексом <span class="math notranslate nohighlight">\(k+1/2\)</span> имеют индексы <span class="math notranslate nohighlight">\(k\)</span> и <span class="math notranslate nohighlight">\(k+1\)</span> соответственно.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Если вы задали число ячеек расчётной сетки <span class="math notranslate nohighlight">\(N\)</span>, то число граничных точек будет <span class="math notranslate nohighlight">\(N + 1\)</span>.
-Это важно помнить при формировании массивов значений величин с дробными и целыми индексами.</p>
-</div>
-<p>Таким образом, требуется решить систему уравнений <a class="reference internal" href="#equation-sod-system">(20)</a> методом Годунова <a class="reference internal" href="#equation-eq-godunov">(21)</a>, рассчитывая потоки на границах ячеек по формуле <a class="reference internal" href="#equation-eq-rusanov">(22)</a>.</p>
+<p>где <span class="math notranslate nohighlight">\(c_k^n\)</span> — максимальная скорость среди левого и правого относительно границы объёмов:</p>
+<div class="math notranslate nohighlight">
+\[
+c_k^n = \max\left(
+    c_{k-1/2}^n + |u_{k-1/2}^n|, c_{k+1/2}^n + |u_{k+1/2}^n|
+\right),
+\]</div>
+<p>где <span class="math notranslate nohighlight">\(c\)</span> — скорость звука в контрольных объёмах.</p>
+<p>Метод Годунова является вариантом <em>метода контрольного объёма</em>.
+Объёмом, обозначаемым дробным индексом <span class="math notranslate nohighlight">\(k+1/2\)</span>, является пространство, ограниченное точками <span class="math notranslate nohighlight">\(x_k\)</span> и <span class="math notranslate nohighlight">\(x_{k+1}\)</span> расчётной сетки.</p>
+<p>Метод Русанова предназначен для решения гиперболических уравнений с частными производными.
+С его помощью решается задача о распаде разрыва на границе каждой пары контрольных объёмов.</p>
+<p>Если посмотреть на схему Годунова <a class="reference internal" href="#equation-eq-godunov">(22)</a> повнимательнее, то приметить её сходство со схемой Эйлера.
+С физической точки зрения это она и есть.
+Действительно, значение <span class="math notranslate nohighlight">\(\vec q\)</span> на новом шаге по времени рассчитывается, как предыдущее значение плюс умноженная на шаг по времени <span class="math notranslate nohighlight">\(\Delta t\)</span> скорость изменения <span class="math notranslate nohighlight">\(\vec q\)</span>, определяемая разностью потоков (массы, импульса и энергии) через границы объёма.</p>
+<p>Рассмотренные численные схемы являются условно устойчивыми.
+Для обеспечения их устойчивости требуется использовать определённый шаг по времени, который рассчитывается по числу CFL <span class="math notranslate nohighlight">\(\alpha\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-eq-cfl-time">
+<span class="eqno">(24)<a class="headerlink" href="#equation-eq-cfl-time" title="Link to this equation">#</a></span>\[
+\Delta t = \alpha \cfrac{\Delta x}{c_\mathrm{max}},
+\]</div>
+<p>где <span class="math notranslate nohighlight">\(c_\mathrm{max}\)</span> — максимальная скорость газа по контрольным объёмам:</p>
+<div class="math notranslate nohighlight">
+\[
+c_\mathrm{max} = \max(c + |u|).
+\]</div>
+<p>Таким образом, требуется решить систему уравнений <a class="reference internal" href="#equation-sod-system">(20)</a> методом Годунова <a class="reference internal" href="#equation-eq-godunov">(22)</a>, рассчитывая потоки на границах ячеек по формуле <a class="reference internal" href="#equation-eq-rusanov">(23)</a> и обеспечивая устойчивость решения расчётом временного шага по формуле <a class="reference internal" href="#equation-eq-cfl-time">(24)</a>.</p>
+</section>
+<section id="id18">
+<h4>Алгоритм решения<a class="headerlink" href="#id18" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Задаём число контрольных объёмов <span class="math notranslate nohighlight">\(N\)</span>, задаём и доопределяем параметры газа в левой (<span class="math notranslate nohighlight">\(p_\mathrm{л}\)</span>, <span class="math notranslate nohighlight">\(\rho_\mathrm{л}\)</span>, <span class="math notranslate nohighlight">\(u_\mathrm{л}\)</span>, <span class="math notranslate nohighlight">\(E_\mathrm{л}\)</span>) и правой (<span class="math notranslate nohighlight">\(p_\mathrm{п}\)</span>, <span class="math notranslate nohighlight">\(\rho_\mathrm{п}\)</span>, <span class="math notranslate nohighlight">\(u_\mathrm{п}\)</span>, <span class="math notranslate nohighlight">\(E_\mathrm{п}\)</span>) частях трубы, задаём число CFL <span class="math notranslate nohighlight">\(\alpha\)</span> (например, 0.75), шаг по сетке <span class="math notranslate nohighlight">\(\Delta x\)</span>, величину времени интегрирования <span class="math notranslate nohighlight">\(t_\mathrm{к}\)</span>, показатель адиабаты газа <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+<li><p>Создаём расчётную сетку из <span class="math notranslate nohighlight">\(N + 1\)</span> точек (границ).</p></li>
+<li><p>Инициализируем массивы параметров газа (<span class="math notranslate nohighlight">\(p\)</span>, <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(u\)</span>, <span class="math notranslate nohighlight">\(E\)</span>) в контрольных объёмах.</p></li>
+<li><p>Инициализируем массив (матрицу) <span class="math notranslate nohighlight">\(\vec q\)</span> в контрольных объёмах.</p></li>
+<li><p>Создаём списки <code class="docutils literal notranslate"><span class="pre">q_store</span></code>, <code class="docutils literal notranslate"><span class="pre">p_store</span></code> и <code class="docutils literal notranslate"><span class="pre">t_store</span></code> для хранения результатов на каждом временном шаге.</p></li>
+<li><p>Инициализируем счётчик по времени <span class="math notranslate nohighlight">\(t \leftarrow 0\)</span>.</p></li>
+<li><p>Пока <span class="math notranslate nohighlight">\(t \le t_\mathrm{к}\)</span>:</p>
+<ol class="arabic simple">
+<li><p>Пересчитываем давление <span class="math notranslate nohighlight">\(p\)</span> и скорость звука <span class="math notranslate nohighlight">\(c\)</span> в контрольных объёмах.</p></li>
+<li><p>Рассчитываем потоки через левые <span class="math notranslate nohighlight">\(\vec f_k^n\)</span> и правые <span class="math notranslate nohighlight">\(\vec f_{k+1}^n\)</span> границы объёмов по методу Русанова <a class="reference internal" href="#equation-eq-rusanov">(23)</a>.</p></li>
+<li><p>Пересчитываем шаг по времени <span class="math notranslate nohighlight">\(\Delta t\)</span> по формуле <a class="reference internal" href="#equation-eq-cfl-time">(24)</a>.</p></li>
+<li><p>Считаем <span class="math notranslate nohighlight">\(\vec q^n\)</span> в контрольных объёмах по методу Годунова <a class="reference internal" href="#equation-eq-godunov">(22)</a>.</p></li>
+<li><p>Инкрементируем счётчик времени <span class="math notranslate nohighlight">\(t \leftarrow t + \Delta t\)</span>.</p></li>
+<li><p>Добавляем массивы <span class="math notranslate nohighlight">\(\vec q\)</span>, <span class="math notranslate nohighlight">\(p\)</span> и текущее время <span class="math notranslate nohighlight">\(t\)</span> в списки <code class="docutils literal notranslate"><span class="pre">q_store</span></code>, <code class="docutils literal notranslate"><span class="pre">p_store</span></code> и <code class="docutils literal notranslate"><span class="pre">t_store</span></code>.</p></li>
+</ol>
+</li>
+<li><p>Обрабатываем результаты, строим графики.</p></li>
+</ol>
+</section>
+<section id="id19">
+<h4>Точное решение<a class="headerlink" href="#id19" title="Link to this heading">#</a></h4>
+<p>У задачи Сода известно точное решение, с которым необходимо сравниться.
+Оно довольно громоздкое.</p>
+<p>Скорость <span class="math notranslate nohighlight">\(u\)</span> в каждый момент времени <span class="math notranslate nohighlight">\(t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+u(x) = \begin{cases}
+0, &amp; x &lt; c_\mathrm{л} t, \\
+u_2 \cfrac{x + c_\mathrm{л} t}{(u_2 - c_2 + c_\mathrm{л}) t}, &amp; c_\mathrm{л} t &lt; x &lt; (u_2 - c_2) t, \\
+u_2, &amp; (u_2 - c_2) t &lt; x &lt; u_2 t, \\
+u_2, &amp; u_2 t &lt; x &lt; D t, \\
+0, &amp; x &gt; D t.
+\end{cases}
+\end{split}\]</div>
+<p>Плотность <span class="math notranslate nohighlight">\(\rho\)</span> в каждый момент времени <span class="math notranslate nohighlight">\(t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\rho(x) = \begin{cases}
+\rho_\mathrm{л}, &amp; x &lt; c_\mathrm{л} t, \\
+\rho_\mathrm{л}\left(
+    1 - \cfrac{k - 1}{2} \cfrac{u(x)}{c_\mathrm{л}}
+\right)^{\frac{2}{k - 1}}, &amp; c_\mathrm{л} t &lt; x &lt; (u_2 - c_2) t, \\
+\rho_2, &amp; (u_2 - c_2) t &lt; x &lt; u_2 t, \\
+\rho_1, &amp; u_2 t &lt; x &lt; D t, \\
+\rho_\mathrm{п}, &amp; x &gt; D t.
+\end{cases}
+\end{split}\]</div>
+<p>Давление <span class="math notranslate nohighlight">\(p(x)\)</span> в каждый момент времени <span class="math notranslate nohighlight">\(t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+p(x) = \begin{cases}
+p_\mathrm{л}, &amp; x &lt; c_\mathrm{л} t, \\
+p_\mathrm{л}\left(
+    1 - \cfrac{k - 1}{2} \cfrac{u(x)}{c_\mathrm{л}}
+\right)^{\frac{2 k}{k - 1}}, &amp; c_\mathrm{л} t &lt; x &lt; (u_2 - c_2) t, \\
+p_2, &amp; (u_2 - c_2) t &lt; x &lt; u_2 t, \\
+p_2, &amp; u_2 t &lt; x &lt; D t, \\
+p_\mathrm{п}, &amp; x &gt; D t.
+\end{cases}
+\end{split}\]</div>
+<p><strong>Важно:</strong> предполагается, что <span class="math notranslate nohighlight">\(p_\mathrm{л} &gt; p_\mathrm{п}\)</span>.</p>
+<p>В приведённых формулах:
+<span class="math notranslate nohighlight">\(c_2\)</span> — скорость звука на соответствующем участке:</p>
+<div class="math notranslate nohighlight">
+\[
+c_2 = \sqrt{k p_2 / \rho_2};
+\]</div>
+<p><span class="math notranslate nohighlight">\(D\)</span> — скорость ударной волны:</p>
+<div class="math notranslate nohighlight">
+\[
+D = \cfrac{p_2 - p_\mathrm{п}}{\rho_\mathrm{п} u_2};
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\rho_1 = \rho_\mathrm{п} \cfrac{D}{D - u_2};
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\rho^k_2 = \rho^k_\mathrm{л} \cfrac{p_2}{p_\mathrm{л}};
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+p_2 = p_\mathrm{п} \cfrac{(k + 1) \rho_1 - (k - 1) \rho_\mathrm{п}}{(k + 1) \rho_\mathrm{п} - (k - 1) \rho_1};
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+u_2 = \cfrac{2}{k - 1} (c_\mathrm{л} - c_2).
+\]</div>
+<p>В итоге на тестовых данных должны получиться такие графики:</p>
+<p><img alt="Точное решение" src="_images/sod_accurate.png" /></p>
 </section>
 </section>
 </section>
@@ -1264,7 +1420,11 @@ q(x) = s(t=0, x).
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Лабораторная работа</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Часть 1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Часть 2 — задача Сода</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Теория</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Физика</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Математическая модель</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Численная схема</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Алгоритм решения</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Точное решение</a></li>
 </ul>
 </li>
 </ul>
