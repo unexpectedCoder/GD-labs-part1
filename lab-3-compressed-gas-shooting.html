@@ -376,8 +376,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Часть 1 — Решение задачи Лагранжа в эйлеровых координатах</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Часть 2 — Решение задачи Лагранжа в массовых лагранжевых координатах</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Задача</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Требуется</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Исходные данные</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Часть 1 — Решение задачи Лагранжа в массовых лагранжевых координатах</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Математическая модель</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Численный метод Неймана</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Условие устойчивости численного метода</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Часть 2 — Решение задачи Лагранжа в эйлеровых координатах</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Математическая модель</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Метод численного решения</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ausm">Расчёт потоков по методу AUSM+</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Устойчивость метода численного решения</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Точное решение</a></li>
 </ul>
             </nav>
         </div>
@@ -392,127 +407,78 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="o3">
 <h1>Лабораторная работа №3: “Методы численного расчёта баллистической задачи Лагранжа”<a class="headerlink" href="#o3" title="Link to this heading">#</a></h1>
 <section id="id1">
-<h2>Часть 1 — Решение задачи Лагранжа в эйлеровых координатах<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>Задача Лагранжа описывается одномерными нестационарными уравнениями газовой динамики:</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{\partial \rho}{\partial t} + \frac{\partial \rho v}{\partial x} = 0,
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-\frac{\partial \rho v}{\partial t} + \frac{\partial}{\partial x} (\rho v^2 + p) = 0,
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-\frac{\partial \rho E}{\partial t} + \frac{\partial}{\partial x} (\rho v H) = 0,
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-E = \varepsilon + v^2/2
-\]</div>
-<p>с подвижной границей, описываемой уравнением движения</p>
-<div class="math notranslate nohighlight">
-\[
-m \frac{\mathrm{d} v_\mathrm{п}}{\mathrm{d} t} = p_\mathrm{п} S,
-\]</div>
-<p>где <span class="math notranslate nohighlight">\(p_\mathrm{п}\)</span> — давление на дно поршня.</p>
-<p>Начальные условия при <span class="math notranslate nohighlight">\(t = 0\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\rho = \rho_0, \quad   p= p_0, \quad v = 0, \quad v_\mathrm{п} = 0.\]</div>
-<p>В векторном виде эти уравнения можно записать как:</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{\partial \vec{q}}{\partial t} + \frac{\partial \vec{f}}{\partial x} = 0,
-\]</div>
-<p>где</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\vec{q} = \left[\begin{matrix}
-    \rho \\ \rho v \\ \rho E
-\end{matrix}\right];
-\quad
-\vec{f} = \left[\begin{matrix}
-    \rho v  \\ \rho v^2 + p \\ \rho v H
-\end{matrix}\right].
-\end{split}\]</div>
-<p>Обозначения:
-узлы по времени <span class="math notranslate nohighlight">\(n\)</span>, узлы по координате <span class="math notranslate nohighlight">\(k\)</span>.
-Значение функции в узле <span class="math notranslate nohighlight">\((t_n, x_k)\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[
-\vec q^n_k = \vec q(x_k,t_n).
-\]</div>
-<p>Вводится подвижная пространственная сетка.
-Положения узлов в каждый момент времени определяются из соотношения
-<span class="math notranslate nohighlight">\(x^n_k = x^n_p \cdot k/N\)</span>.</p>
-<p>Явная разностная схема по методу С.К. Годунова:</p>
-<div class="math notranslate nohighlight">
-\[
-\vec q^{n+1}_{k+1/2} =
-\frac{\Delta x^n}{\Delta x^{n+1}} \left[
-    \vec q^n_{k+1/2} -
-    \frac{\tau^n}{\Delta x^n} \left(
-        \vec f^n_{k+1} - \vec f^n_{k}
-    \right)
-\right].
-\]</div>
-<p>Потоки на границах ячеек <span class="math notranslate nohighlight">\(\vec f^n_k\)</span> определяются по схеме В.В. Русанова:</p>
-<div class="math notranslate nohighlight">
-\[
-\vec f^n_k =
-\frac 1 2 \left[
-    \left(
-        (1 + \mathrm{M}^n_k) \vec f^n_{k+1/2}
-        + (1 - \mathrm{M}^n_k) \vec f^n_{k-1/2}
-    \right)
-    - c_\mathrm{max} \left(
-        (1 + \mathrm{M}^n_k) \vec q^n_{k+1/2}
-        - (1 - \mathrm{M}^n_k) \vec q^n_{k-1/2}
-    \right)
-\right],
-\]</div>
-<p>где
-<span class="math notranslate nohighlight">\(\mathrm{M}^n_k = u^n_k/(c_\mathrm{max})^n_k\)</span>.</p>
+<h2>Задача<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Есть труба с подвижным поршнем.
+Поршень способен двигаться без трения и обеспечивает герметичность трубы.
+За поршнем находится изначально сжатый газ.
+В начальный момент времени поршень и газ покоятся.</p>
 </section>
 <section id="id2">
-<h2>Часть 2 — Решение задачи Лагранжа в массовых лагранжевых координатах<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<h2>Требуется<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Смоделировать движение поршня в трубе под действием сжатого газа.</p></li>
+<li><p>Построить графики:</p>
+<ul class="simple">
+<li><p>координаты <span class="math notranslate nohighlight">\(x_\mathrm{п}(t)\)</span> и скорости <span class="math notranslate nohighlight">\(u_\mathrm{п}(t)\)</span> поршня от времени;</p></li>
+<li><p>давления на дно трубы <span class="math notranslate nohighlight">\(p_\mathrm{т}(t)\)</span> и поршень <span class="math notranslate nohighlight">\(p_\mathrm{п}(t)\)</span> от времени;</p></li>
+<li><p>распределение давления газа в каждый момент времени <span class="math notranslate nohighlight">\(p(t, x)\)</span>.</p></li>
+</ul>
+</li>
+<li><p>Сравнить численные решения с точными.</p></li>
+<li><p>Проанализировать полученные результаты.</p></li>
+</ol>
+</section>
+<section id="id3">
+<h2>Исходные данные<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Число контрольных объёмов <span class="math notranslate nohighlight">\(N = 300\)</span>.
+Масса поршня <span class="math notranslate nohighlight">\(m = 0.1\)</span> кг, его начальная координата <span class="math notranslate nohighlight">\(x_0 = 0.5\)</span> м и диаметр <span class="math notranslate nohighlight">\(d = 0.03\)</span> м.
+Длина трубы <span class="math notranslate nohighlight">\(L = 2\)</span> м.
+Параметры газа: <span class="math notranslate nohighlight">\(p_0 = 5\)</span> МПа (давление), <span class="math notranslate nohighlight">\(T_0 = 300\)</span> К (температура), <span class="math notranslate nohighlight">\(R = 287\)</span> Дж/(кг<span class="math notranslate nohighlight">\(\cdot\)</span>К) (удельная газовая постоянная), <span class="math notranslate nohighlight">\(k = 1.4\)</span> (показатель адиабаты).
+Число CFL <span class="math notranslate nohighlight">\(\mathrm{Ku} = 0.5\)</span>.</p>
+</section>
+<section id="id4">
+<h2>Часть 1 — Решение задачи Лагранжа в массовых лагранжевых координатах<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h3>Математическая модель<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>Уравнения газовой динамики в массовых лагранжевых координатах
 записываются следующим образом:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\mathrm{d}}{\mathrm{d} t} \left( \frac{1}{\rho} \right)
-- \frac{\partial v}{\partial \xi}
+- S \frac{\partial u}{\partial \xi}
 = 0,
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-\frac{\mathrm{d} v}{\mathrm{d} t}
-+ \frac {\partial p}{\partial \xi}
+\frac{\mathrm{d} u}{\mathrm{d} t}
++ S \frac {\partial p}{\partial \xi}
 = 0,
 \]</div>
 <div class="math notranslate nohighlight">
 \[
 \frac{\mathrm{d} \varepsilon}{\mathrm{d} t}
-+ p \frac {\partial v}{\partial \xi}
++ p S \frac {\partial u}{\partial \xi}
 = 0,
 \]</div>
 <p>где массовая лагранжева координата <span class="math notranslate nohighlight">\(\xi\)</span> представляет собой интеграл</p>
 <div class="math notranslate nohighlight">
 \[
-q = \int\limits_{x_1}^{x_2} \rho(x) \, \mathrm{d} x.
+\xi = \int\limits_{x_1}^{x_2} \rho(x) \, \mathrm{d} x.
 \]</div>
-<p>Численный метод Неймана:</p>
+</section>
+<section id="id6">
+<h3>Численный метод Неймана<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <div class="math notranslate nohighlight">
 \[
-v^{n+1}_i =
-v^n_i
+u^{n+1}_i =
+u^n_i
 - \tau^n \frac{p^n_{i+1/2}
 - p^n_{i-1/2}} {0.5 (\xi_{i+1/2}
-+ \xi_{i-1/2}) + \xi_i},
++ \xi_{i-1/2}) + \xi_i} S,
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-x^{n+1}_i = x^n_i + \tau^n v^{n+1}_i,
+x^{n+1}_i = x^n_i + \tau^n u^{n+1}_i,
 \]</div>
 <div class="math notranslate nohighlight">
 \[
@@ -521,16 +487,229 @@ x^{n+1}_i = x^n_i + \tau^n v^{n+1}_i,
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-\varepsilon^{n+1}_{i+1/2} =
+{\color{green} \varepsilon^{n+1}_{i+1/2}} =
 \varepsilon^n_{i+1/2}
-- \tau^n \frac{p^{n+1}_{i+1/2}
-+ p^n_{i+1/2}}{2} \frac{v^{n+1}_{i+1}
-- v^{n+1}_i}{\xi_{i+1/2}},
+- \tau^n S \frac{{\color{blue} p^{n+1}_{i+1/2}}
++ p^n_{i+1/2}}{2} \frac{u^{n+1}_{i+1}
+- u^{n+1}_i}{\xi_{i+1/2}},
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-p^{n+1}_{i+1/2} =
-(k-1) \rho^{n+1}_{i+1/2} \varepsilon^{n+1}_{i+1/2}.
+{\color{blue} p^{n+1}_{i+1/2}} =
+(k-1) \rho^{n+1}_{i+1/2}
+{\color{green} \varepsilon^{n+1}_{i+1/2}}.
+\]</div>
+<p>Схема формально является неявной.
+Однако её легко привести к явной, решив систему линейных алгебраических уравнений (два последних уравнения).</p>
+<p>Приняты следующие обозначения.
+Дробные индексы <span class="math notranslate nohighlight">\(i+1/2\)</span> отвечают контрольным объёмам, заключённым между <strong>интерфейсами</strong> (границами) с индексами <span class="math notranslate nohighlight">\(i\)</span> и <span class="math notranslate nohighlight">\(i+1\)</span>;
+<span class="math notranslate nohighlight">\(S\)</span> — площадь поршня (сечения трубы);
+<span class="math notranslate nohighlight">\(u\)</span>, <span class="math notranslate nohighlight">\(p\)</span>, <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\varepsilon\)</span>, <span class="math notranslate nohighlight">\(k\)</span> — скорость, давление, плотность, внутренняя энергия, показатель адиабаты газа;
+<span class="math notranslate nohighlight">\(\tau\)</span> — шаг по времени.</p>
+</section>
+<section id="id7">
+<h3>Условие устойчивости численного метода<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Для устойчивости метода необходимо пересчитывать временной шаг на каждой итерации интегрирования:</p>
+<div class="math notranslate nohighlight" id="equation-eq-time-step">
+<span class="eqno">(25)<a class="headerlink" href="#equation-eq-time-step" title="Link to this equation">#</a></span>\[
+\tau^n =
+\mathrm{Ku} \cdot \min_{i=0,1,\ldots,N-1}\left(
+    \frac{\Delta x^n}{c^n_{i+1/2} + |u^n_{i+1/2}|}
+\right),
+\]</div>
+<p>где
+<span class="math notranslate nohighlight">\(\mathrm{Ku}\)</span> — число CFL, <span class="math notranslate nohighlight">\(0 &lt; \mathrm{Ku} &lt; 1\)</span>;
+<span class="math notranslate nohighlight">\(\Delta x^n\)</span> — шаг расчётной сетки;
+<span class="math notranslate nohighlight">\(N\)</span> — число контрольных объёмов;
+<span class="math notranslate nohighlight">\(c^n_{i+1/2}\)</span> — скорость звука в контрольных объёмах:</p>
+<div class="math notranslate nohighlight">
+\[
+c^n_{i+1/2} =
+\sqrt{k \frac{p^n_{i+1/2}}{\rho^n_{i+1/2}}};
+\]</div>
+<p><span class="math notranslate nohighlight">\(u^n_{i+1/2}\)</span> — скорость контрольных объёмов, как средняя скорость интерфейсов:</p>
+<div class="math notranslate nohighlight">
+\[
+u^n_{i+1/2} = (u^n_{i+1} + u^n_i) / 2.
+\]</div>
+</section>
+</section>
+<section id="id8">
+<h2>Часть 2 — Решение задачи Лагранжа в эйлеровых координатах<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<section id="id9">
+<h3>Математическая модель<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Задача Лагранжа описывается одномерными нестационарными уравнениями газовой динамики:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \rho}{\partial t} + \frac{\partial \rho u}{\partial x} = 0,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \rho u}{\partial t} + \frac{\partial}{\partial x} (\rho u^2 + p) = 0,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \rho E}{\partial t} + \frac{\partial}{\partial x} [u (\rho E + p)] = 0,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+E = \varepsilon + \frac{u^2}{2} = \frac{1}{k-1} \frac{p}{\rho} + \frac{u^2}{2}
+\]</div>
+<p>с подвижной границей, описываемой уравнением движения поршня</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\mathrm{d} u_\mathrm{п}}{\mathrm{d} t} = \frac{p_\mathrm{п} S}{m},
+\]</div>
+<p>где <span class="math notranslate nohighlight">\(p_\mathrm{п}\)</span> — давление на дно поршня.</p>
+<p>Начальные условия при <span class="math notranslate nohighlight">\(t = 0\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\rho(x) = \rho_0, \quad   p(x) = p_0, \quad u(x) = 0, \quad u_\mathrm{п} = 0.\]</div>
+<p>В векторном виде уравнения выше можно записать так:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \vec{q}}{\partial t} + \frac{\partial \vec{f}(\vec q)}{\partial x} = 0,
+\]</div>
+<p>где</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\vec{q} = \left[\begin{matrix}
+    \rho \\ \rho u \\ \rho E
+\end{matrix}\right];
+\quad
+\vec{f} = \left[\begin{matrix}
+    \rho u  \\ \rho u^2 + p \\ u (\rho E + p)
+\end{matrix}\right].
+\end{split}\]</div>
+</section>
+<section id="id10">
+<h3>Метод численного решения<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Вводится подвижная пространственная сетка.
+В качестве упрощения можно её перестраивать равномерно.</p>
+<p>Упрощённая явная разностная схема:</p>
+<div class="math notranslate nohighlight">
+\[
+\vec q^{n+1}_{i+1/2} =
+\frac{\Delta x^n}{\Delta x^{n+1}} \left[
+    \vec q^n_{i+1/2} -
+    \frac{\tau^n}{\Delta x^n} \left(
+        \vec f^n_{i+1} - \vec f^n_{i}
+    \right)
+\right]
+\]</div>
+<p>при <span class="math notranslate nohighlight">\(i = 0, 1, \ldots, N-1\)</span>, где <span class="math notranslate nohighlight">\(N\)</span> — число контрольных объёмов.</p>
+</section>
+<section id="ausm">
+<h3>Расчёт потоков по методу AUSM+<a class="headerlink" href="#ausm" title="Link to this heading">#</a></h3>
+<p>Поток на <span class="math notranslate nohighlight">\(i\)</span>-ом интерфейсе <span class="math notranslate nohighlight">\(\vec f_i\)</span> на любом шаге по времени рассчитывается по методу AUSM+:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\vec f_i = \frac{c_i}{2}\left[
+    \mathrm{M}^r_i (\vec\Phi_{i+1/2} + \vec\Phi_{i-1/2})
+    - |\mathrm{M}^r_i| (\vec\Phi_{i+1/2} - \vec\Phi_{i-1/2})
+\right]
++ \left[\begin{matrix}
+    0 \\ p_i \\ p_i u_i
+\end{matrix}\right],
+\end{split}\]</div>
+<p>где</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\vec\Phi = \left[
+    \begin{matrix}
+        \rho \\ \rho u \\ \rho E + p
+    \end{matrix}
+\right];
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\mathrm{M}^r_i\)</span> — число Маха относительно <span class="math notranslate nohighlight">\(i\)</span>-го интерфейса:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{M}^r_i =
+f_\beta^+(\mathrm{M}^r_{i-1/2})
++ f_\beta^-(\mathrm{M}^r_{i+1/2})
+\]</div>
+<p>при <span class="math notranslate nohighlight">\(\mathrm{M}^r_{i \pm 1/2} = (u_{i \pm 1/2} - u_i) / c_i\)</span>;
+<span class="math notranslate nohighlight">\(p_i\)</span> — давление на интерфейсе:</p>
+<div class="math notranslate nohighlight">
+\[
+p_i =
+g_\alpha^+(\mathrm{M}^r_{i-1/2})p_{i-1/2}
++ g_\alpha^-(\mathrm{M}^r_{i+1/2})p_{i+1/2};
+\]</div>
+<p><span class="math notranslate nohighlight">\(c_i\)</span> — скорость звука на интерфейсе:</p>
+<div class="math notranslate nohighlight">
+\[
+c_i = (c_{i-1/2} + c_{i+1/2}) / 2;
+\]</div>
+<p><span class="math notranslate nohighlight">\(u_i\)</span> — скорость <span class="math notranslate nohighlight">\(i\)</span>-го интерфейса:</p>
+<div class="math notranslate nohighlight">
+\[
+u_i = \frac{x^{n+1}_i - x^n_i}{\tau^n}.
+\]</div>
+<p>Функции <span class="math notranslate nohighlight">\(f_\beta^\pm\)</span> и <span class="math notranslate nohighlight">\(g_\alpha^\pm\)</span> зависят только от числа Маха в контрольных объёмах и имеют следующий вид:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f_\beta^\pm(\mathrm{M}) = \begin{cases}
+\cfrac{\mathrm{M} \pm |\mathrm{M}|}{2}, &amp;
+    |\mathrm{M}| \ge 1, \\
+\pm \cfrac{1}{4}(\mathrm{M} \pm 1)^2 \left[
+    1 + 4 \beta (\mathrm{M} \mp 1)^2
+\right], &amp;
+    |\mathrm{M}| &lt; 1;
+\end{cases}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+g_\alpha^\pm(\mathrm{M}) = \begin{cases}
+\cfrac{\mathrm{M} \pm |\mathrm{M}|}{2 \mathrm{M}}, &amp;
+    |\mathrm{M}| \ge 1, \\
+(\mathrm{M} \pm 1)^2 \left[
+    \cfrac{2 \mp \mathrm{M}}{4} \pm \alpha\mathrm{M}(\mathrm{M} \mp 1)^2
+\right], &amp;
+    |\mathrm{M}| &lt; 1.
+\end{cases}
+\end{split}\]</div>
+<p>Коэффициенты можно принять следующими:
+<span class="math notranslate nohighlight">\(\alpha = 3/16\)</span>, <span class="math notranslate nohighlight">\(\beta = 1/4\)</span>.</p>
+</section>
+<section id="id11">
+<h3>Устойчивость метода численного решения<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>Условие устойчивости данного численного метода то же, что и <a class="reference internal" href="#equation-eq-time-step">(25)</a>.</p>
+</section>
+</section>
+<section id="id12">
+<h2>Точное решение<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>Точное решение баллистической задачи Лагранжа действует до момента времени <span class="math notranslate nohighlight">\(t_\mathrm{т}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+t_\mathrm{т} = \frac{x_0}{c_0} \left(
+    2 + \frac{k+1}{2 k} \frac{M}{m}
+\right),
+\]</div>
+<p>где
+<span class="math notranslate nohighlight">\(M\)</span> — масса газа: <span class="math notranslate nohighlight">\(M = \rho S x_0\)</span>;
+<span class="math notranslate nohighlight">\(c_0\)</span> — скорость звука с сжатом газе:</p>
+<div class="math notranslate nohighlight">
+\[
+c_0 = \sqrt{k p_0 / \rho_0}.
+\]</div>
+<p>Скорость поршня при <span class="math notranslate nohighlight">\(0 &lt; t &lt; t_\mathrm{т}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+u_\mathrm{п}(t) = \frac{2 c_0}{k - 1} \left[
+    1 - \left(
+        \frac{k+1}{2 k}\frac{M}{m}\frac{c_0}{x_0} t + 1
+    \right)^\frac{1-k}{k+1}
+\right].
+\]</div>
+<p>Координата поршня при <span class="math notranslate nohighlight">\(0 &lt; t &lt; t_\mathrm{т}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+x_\mathrm{п}(t) = x_0 + \frac{2 c_0}{k-1} t
++ \frac{2 k}{k-1}\frac{m}{M} x_0 \left[
+    1 - \left(
+        \frac{k+1}{2 k}\frac{M}{m}\frac{c_0}{x_0} t + 1
+    \right)^\frac{2}{k+1}
+\right].
 \]</div>
 </section>
 </section>
@@ -590,8 +769,23 @@ p^{n+1}_{i+1/2} =
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Часть 1 — Решение задачи Лагранжа в эйлеровых координатах</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Часть 2 — Решение задачи Лагранжа в массовых лагранжевых координатах</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Задача</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Требуется</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Исходные данные</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Часть 1 — Решение задачи Лагранжа в массовых лагранжевых координатах</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Математическая модель</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Численный метод Неймана</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Условие устойчивости численного метода</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Часть 2 — Решение задачи Лагранжа в эйлеровых координатах</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Математическая модель</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Метод численного решения</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ausm">Расчёт потоков по методу AUSM+</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Устойчивость метода численного решения</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Точное решение</a></li>
 </ul>
   </nav></div>
 
